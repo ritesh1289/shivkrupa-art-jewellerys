@@ -1,0 +1,43 @@
+# ==========================================================
+# SHIVKRUPA ART JEWELLERY — Apache Security & Routing Config
+# ==========================================================
+
+# 1. Disable Directory Browsing
+Options -Indexes
+
+# 2. Block Direct Access to Sensitive Files, Schemas, & Configs
+<FilesMatch "(^#.*#|\.(sql|env(\..+)?|log|md|git.*|yml|yaml|ini|bak|swp)|~)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order Deny,Allow
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# 3. Protect Internal Application Directories from Direct Web Browsing
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Deny direct HTTP access to private application folders
+    RewriteRule ^(app|config|database|storage/uploads/.*\.php|tests|scripts|docs)/.*$ - [F,L]
+
+    # Preserve direct access to /admin
+    RewriteRule ^admin(/.*)?$ - [L]
+
+    # Preserve direct access to /public
+    RewriteRule ^public(/.*)?$ - [L]
+
+    # Rewrite customer storefront requests to public/
+    RewriteRule ^$ public/index.php [L]
+    RewriteRule ^((?!public/|admin/).*)$ public/$1 [L]
+</IfModule>
+
+# 4. Security Response Headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+

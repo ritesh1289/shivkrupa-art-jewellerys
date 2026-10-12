@@ -1,0 +1,71 @@
+# ==========================================================
+# SHIVKRUPA ART JEWELLERY — Git Ignore Policy
+# ==========================================================
+
+# 1. Environment Credentials & Local Secrets
+.env
+.env.*
+*.env
+!.env.example
+config/config.local.php
+*.key
+*.pem
+
+# 2. Operating System Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# 3. IDE & Code Editor Configuration
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+*.swo
+*~
+
+# 4. PHP & Server Logs
+*.log
+logs/
+error_log
+access_log
+php_errors.log
+
+# 5. Caches & Temporary Artifacts
+tmp/
+temp/
+scratch/
+.cache/
+opcache/
+.phpunit.cache/
+.php-cs-fixer.cache
+
+# 6. Database Dumps & Ad-hoc Backups
+*.bak
+*.sql.bak
+*.sql.gz
+*.dump
+backup/
+backups/
+
+# 7. Test Output & Coverage
+tests/output/
+coverage/
+*.coverage
+
+# 8. Whitelist required project assets & schemas
+!database/database.sql
+!assets/
+!assets/css/
+!assets/js/
+!assets/images/
+!uploads/
+!uploads/.htaccess
+!uploads/products/

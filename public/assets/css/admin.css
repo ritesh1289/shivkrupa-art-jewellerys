@@ -1,0 +1,237 @@
+/* ==========================================================================
+   SHIVKRUPA ART JEWELLERY — Admin Panel Master Stylesheet
+   ========================================================================== */
+
+:root {
+    --admin-sidebar-bg: #181512;
+    --admin-sidebar-hover: #26211C;
+    --admin-sidebar-active: #C5A059;
+    --admin-content-bg: #F8F6F2;
+    --admin-card-bg: #FFFFFF;
+    --admin-border: #E8E2D8;
+    --admin-text: #211E1B;
+    --admin-muted: #6B655D;
+}
+
+body.admin-body {
+    background-color: var(--admin-content-bg);
+    color: var(--admin-text);
+    font-family: var(--font-body);
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Admin Sidebar Layout */
+.admin-sidebar {
+    width: 260px;
+    background-color: var(--admin-sidebar-bg);
+    color: #E2DDD5;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    overflow-y: auto;
+    border-right: 1px solid rgba(197, 160, 89, 0.2);
+}
+
+.admin-sidebar-brand {
+    padding: 1.75rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-sidebar-brand h2 {
+    color: #FFFFFF;
+    font-size: 1.35rem;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.admin-sidebar-brand span {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--gold-primary);
+    letter-spacing: 0.18em;
+    font-weight: 600;
+}
+
+.admin-nav {
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+}
+
+.admin-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.8rem 1.5rem;
+    color: #BDB5AA;
+    font-size: 0.92rem;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.admin-nav-item:hover {
+    background-color: var(--admin-sidebar-hover);
+    color: #FFFFFF;
+    padding-left: 1.75rem;
+}
+
+.admin-nav-item.active {
+    background: linear-gradient(90deg, rgba(197, 160, 89, 0.25) 0%, rgba(197, 160, 89, 0) 100%);
+    color: #FFFFFF;
+    border-left: 4px solid var(--gold-primary);
+    font-weight: 600;
+}
+
+.admin-nav-icon {
+    font-size: 1.15rem;
+}
+
+.admin-sidebar-footer {
+    padding: 1.25rem 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 0.82rem;
+    color: #7E776F;
+}
+
+/* Admin Main Content Layout */
+.admin-main {
+    margin-left: 260px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.admin-topbar {
+    background: #FFFFFF;
+    border-bottom: 1px solid var(--admin-border);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 90;
+}
+
+.admin-content {
+    padding: 2.25rem 2rem;
+    flex: 1;
+}
+
+/* Dashboard Metric Cards */
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.metric-card {
+    background: var(--admin-card-bg);
+    border: 1px solid var(--admin-border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 4px solid var(--gold-primary);
+}
+
+.metric-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--admin-text);
+    margin: 0.25rem 0;
+    line-height: 1.1;
+}
+
+.metric-label {
+    font-size: 0.82rem;
+    color: var(--admin-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.metric-icon-box {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-full);
+    background: #FAF6EE;
+    border: 1px solid var(--border-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--gold-dark);
+}
+
+/* Admin Data Tables */
+.admin-card {
+    background: var(--admin-card-bg);
+    border: 1px solid var(--admin-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.admin-card-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--admin-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.admin-card-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th {
+    background: #FAF8F5;
+    padding: 0.85rem 1.25rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--admin-muted);
+    text-align: left;
+    border-bottom: 1px solid var(--admin-border);
+}
+
+.admin-table td {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--admin-border);
+    vertical-align: middle;
+    font-size: 0.92rem;
+}
+
+.admin-table tr:hover {
+    background-color: #FDFBF8;
+}
+
+.admin-table-thumb {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--admin-border);
+}
