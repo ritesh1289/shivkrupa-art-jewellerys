@@ -244,32 +244,6 @@ DB_NAME=shivkrupa_test_db php tests/test_order_flow.php
 *Simulates cart addition, price hydration, MySQL order placement, Razorpay payment verification, and verifies exact atomic stock reduction on disposable records before cleaning them up.*
 
 ---
-
-## 10. Technical Architecture & FAQ Reference
-
-Frequently referenced technical questions and architectural decisions:
-
-### Q1: Why did you choose PDO over MySQLi?
-**Answer:** PDO (PHP Data Objects) offers an object-oriented, database-agnostic interface supporting 12 different database drivers. It enforces prepared statements with parameter binding, natively preventing SQL Injection. It also allows configuring exception handling (`PDO::ERRMODE_EXCEPTION`) and setting default fetch modes (`PDO::FETCH_ASSOC`).
-
-### Q2: How does the application prevent SQL Injection?
-**Answer:** We never concatenate user inputs directly into query strings. Every query uses parameterized prepared statements with placeholders (e.g., `SELECT * FROM users WHERE email = ?`). The MySQL server compiles the SQL template first and treats user parameters strictly as data values, neutralizing SQL injection.
-
-### Q3: How is Razorpay payment verified on the server?
-**Answer:** When payment succeeds in the frontend, Razorpay returns a `razorpay_payment_id`, `razorpay_order_id`, and a cryptographic `razorpay_signature`. On our server (`payment-verify.php`), we generate an HMAC-SHA256 hash of `razorpay_order_id . '|' . razorpay_payment_id` using our secret key (`RAZORPAY_KEY_SECRET`). We then use `hash_equals()` to compare the signatures. If they match, the payment is confirmed authentic.
-
-### Q4: How is product price tampering prevented in the shopping cart?
-**Answer:** The client-side session only stores the product ID and quantity (`$_SESSION['cart'][$productId] = $qty`). When calculating totals in `cart.php` or `checkout.php`, the server executes a query against the MySQL `products` table to fetch the real price. Any price sent by the browser is ignored.
-
-### Q5: How is user password security handled?
-**Answer:** Passwords are never stored in plain text. We use PHP's native `password_hash($password, PASSWORD_DEFAULT)`, which uses the strong BCrypt algorithm with an automatically generated cryptographic salt. Verification is performed using `password_verify($inputPassword, $storedHash)`.
-
-### Q6: What is CSRF and how is it mitigated here?
-**Answer:** Cross-Site Request Forgery occurs when an unauthorized command is transmitted from a trusted user. We generate a 32-byte pseudo-random token in `$_SESSION['csrf_token']` and embed it in forms via `csrfField()`. Upon form submission, `verifyCsrfToken()` validates the token using `hash_equals()`.
-
-### Q7: Why do we regenerate the session ID on login?
-**Answer:** `session_regenerate_id(true)` prevents **Session Fixation Attacks**, where an attacker forces a victim to use a known session ID and then hijacks the authenticated session once the user logs in.
-
 ---
 
 *Shivkrupa Art Jewellery &bull; Online Jewellery Store &bull; All Rights Reserved.*
